@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<title>Customer Details Form</title>
+	</head>
+	<style type="text/css">
+	.input-box{
+		width: 400px;
+		padding: 20px;
+		border: 1px solid #ababab;
+		border-radius: 100px;
+		margin: 3px;
+	}
+	.submit-box{
+		width: 400px;
+		background: #000000;
+		color: #ffffff;
+		padding: 20px;
+		border: 1px solid #ababab;
+		border-radius: 100px;
+		margin: 10px;	
+	}
+	th, td {
+	  padding: 15px;
+	  text-align: left;
+	}
+	</style>
+	<body>
+
+		<table id="marks" border="1px" style="width: 60%; border-collapse: collapse;">
+			<tr>
+			<th>Customer Name</th>
+			<th>Address</th>
+			<th>Gender</th>
+			<th>Languages known</th>
+			<th>City</th>
+			</tr>
+		</table>
+		
+		<div style="position: fixed; float:right; right: 10px; top: 10px">
+		<h3>Enter data</h3>
+		<form method="post">
+			<input id="name" class="input-box" type="text" placeholder="Enter your Name" required><br>
+			<input id="address" class="input-box" type="text" placeholder="Enter your Address" required><br>
+			<select class="input-box" placeholder="Enter your Gender">
+				<option>Male</option>
+				<option>Female</option>
+				<option>Other</option>
+			</select><br>
+			<input id="languages" class="input-box" type="text" placeholder="Enter your known Languages (comma seperated)" required><br>
+			<input id="city" class="input-box" type="text" placeholder="Enter your City" required><br>
+
+			<button onclick="oncl()" class="submit-box" type="button">Add Student</button>
+		</form>
+		<button onclick="download()" class="submit-box" type="button">Download Data</button>
+	</div>
+		<script type="text/javascript">
+			customers = []
+			function oncl(){
+				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						addCustomer(this);
+					}
+				};
+				xhttp.open("GET", "customers.xml", true);
+				xhttp.send();
+			}
+			function addCustomer(xml){
+				var name = document.getElementById("name").value
+				var address = document.getElementById("address").value
+				var languages = document.getElementById("languages").value
+				var city = document.getElementById("city").value
+				var xmlDoc = xml.responseXML;
+
+				var newEle = xmlDoc.createElement("customer");
+				var newName = xmlDoc.createElement("name");
+				var newText = xmlDoc.createTextNode(name);
+				newName.appendChild(newText);
+				newEle.appendChild(newName);
+
+				newName = xmlDoc.createElement("address");
+				newText = xmlDoc.createTextNode(address);
+				newName.appendChild(newText);
+				newEle.appendChild(newName);
+
+				newName = xmlDoc.createElement("languages");
+				newText = xmlDoc.createTextNode(languages);
+				newName.appendChild(newText);
+				newEle.appendChild(newName);
+
+				newName = xmlDoc.createElement("city");
+				newText = xmlDoc.createTextNode(city);
+				newName.appendChild(newText);
+				newEle.appendChild(newName);
+
+				var root = xmlDoc.getElementsByTagName("customers")[0]
+				root.appendChild(newEle)
+				var x = xmlDoc.getElementsByTagName("customer")[0]
+				alert(x.childNodes[0].childNodes[0].nodeValue)
+				var xmlString = new XMLSerializer().serializeToString(xmlDoc);
+				download("customers.xml", xmlString)
+			}
+			function download(filename, text) {
+				var element = document.createElement('a');
+				element.setAttribute('href', 'data:text/xml;charset=utf-8,' + text);
+				element.setAttribute('download', filename);
+
+				element.style.display = 'none';
+				document.body.appendChild(element);
+
+				element.click();
+
+				}
+		</script>
+	</body>
+</html>

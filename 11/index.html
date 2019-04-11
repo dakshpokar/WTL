@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>
+            Currency Converter from INR to USD
+        </title>
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style type="text/css">
+        .big{
+            padding: 10px;
+            width: 50px;
+            border: 1px solid #ababab;
+            border-radius: 100px;
+        }
+        .input-box{
+            padding: 20px;
+            margin-bottom: 10px;
+            border: 1px solid #ababab;
+            border-radius: 100px;
+        }
+        </style>
+    <body align="center">
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <input class="input-box" type="text" ng-change="convertINR()" ng-model="inr" placeholder="Enter Amount in INR"><br>
+            <h3>Converted amount: <p ng-bind="convertedUSD"></p></h3>
+            <input class="input-box" type="text" ng-change="convertUSD()" ng-model="usd" placeholder="Enter Amount in INR"><br>
+            <h3>Converted amount: <p ng-bind="convertedINR"></p></h3>
+        </div>
+        <script>
+            var app = angular.module("myApp", []);
+            app.controller("myCtrl", function($scope){
+                $scope.convertINR = function(){
+                    $scope.convertedUSD = "$ " + String(Number($scope.inr) / 69)
+                }
+                $scope.convertUSD = function(){
+                    $scope.convertedINR = "Rs. " + String(Number($scope.usd) * 69)
+                }
+            });
+        </script>
+    </body>
+</html>

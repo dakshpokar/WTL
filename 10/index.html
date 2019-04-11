@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <title>
+            AngularJS Calculator
+        </title>
+    </head>
+    <style type="text/css">
+    .big{
+        padding: 10px;
+        width: 50px;
+        border: 1px solid #ababab;
+        border-radius: 100px;
+    }
+    .input-box{
+        padding: 20px;
+        margin-bottom: 10px;
+        border: 1px solid #ababab;
+        border-radius: 100px;
+    }
+    </style>
+    <body align="center">
+        <h1>Arithmetic Operations in AngularJS</h1>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <input class="input-box" type="text" ng-model="a" placeholder="Enter a"><br>
+            <input class="input-box" type="text" ng-model="b" placeholder="Enter b"><br>
+            <button class="big" ng-click="add()" name="Calculate">+</button>
+            <button class="big" ng-click="sub()" name="Calculate">-</button>
+            <button class="big" ng-click="mul()" name="Calculate">*</button>
+            <button class="big" ng-click="div()" name="Calculate">/</button>
+            <br>
+            <div><h3 style="margin-top: 10px">Result: <p ng-bind="result"></p></h3></div>
+        </div>
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller("myCtrl", function($scope){
+            $scope.add = function(){
+                $scope.result = Number($scope.a) + Number($scope.b);
+            }
+            $scope.sub = function(){
+                $scope.result = Number($scope.a) - Number($scope.b);
+            }
+            $scope.mul = function(){
+                $scope.result = Number($scope.a) * Number($scope.b);
+            }
+            $scope.div = function(){
+                if(Number($scope.b) == 0){
+                    $scope.result = "Divide by zero not possible."
+                }else{
+                $scope.result = Number($scope.a) / Number($scope.b);
+                }
+            }
+        });
+        </script>
+    </body>
+</html>

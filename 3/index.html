@@ -1,0 +1,173 @@
+<html>
+	<head>
+		<title>HTML & JavaScript Store Student Data</title>
+	</head>
+	<style type="text/css">
+	.input-box{
+		width: 400px;
+		padding: 20px;
+		border: 1px solid #ababab;
+		border-radius: 100px;
+		margin: 3px;
+	}
+	.submit-box{
+		width: 400px;
+		background: #000000;
+		color: #ffffff;
+		padding: 20px;
+		border: 1px solid #ababab;
+		border-radius: 100px;
+		margin: 10px;	
+	}
+	th, td {
+	  padding: 15px;
+	  text-align: left;
+	}
+	</style>
+	<body>
+		<h4>Average Percentage: </h4> <h4 id="average"></h4>
+		<h4>Total Passed Student: </h4> <h4 id="passed"></h4>
+
+		<table id="marks" border="1px" style="width: 60%; border-collapse: collapse;">
+			<tr>
+			<th>Roll No</th>
+			<th>Name</th>
+			<th>English (50)</th>
+			<th>Maths (50)</th>
+			<th>Science (50)</th>
+			<th>Total (150)</th>
+			<th>Percentage (100)</th>
+			<th>Results</th>
+			<th>Grade</th>
+			</tr>
+		</table>
+		
+		<div style="position: fixed; float:right; right: 10px; top: 10px">
+		<h3>Enter data</h3>
+		<form method="post">
+			<input id="name" class="input-box" type="text" placeholder="Enter your Name" required><br>
+			<input id="rollno" class="input-box" type="text" placeholder="Enter your Roll Number" required><br>
+			<input id="english" class="input-box" type="text" placeholder="Enter your marks in English" required><br>
+			<input id="maths" class="input-box" type="text" placeholder="Enter your marks in Maths" required><br>
+			<input id="science" class="input-box" type="text" placeholder="Enter your marks in Science" required><br>
+
+			<button onclick="addStudent()" class="submit-box" type="button">Add Student</button>
+		</form>
+		<button onclick="download()" class="submit-box" type="button">Download Data</button>
+	</div>
+		<script type="text/javascript">
+			students = []
+			function addStudent(){
+				var name = document.getElementById("name").value
+				var rollno = document.getElementById("rollno").value
+				var english = document.getElementById("english").value
+				var maths = document.getElementById("maths").value
+				var science = document.getElementById("science").value
+				var table = document.getElementById("marks")
+				var tr = document.createElement("tr")
+				var td = document.createElement("td")
+				var passed = document.getElementById("passed")
+				var average = document.getElementById("average")
+
+			
+				td.append(rollno)
+				tr.append(td)
+				var td = document.createElement("td")
+				td.append(name)
+				tr.append(td)
+				var td = document.createElement("td")
+				td.append(english)
+				tr.append(td)
+				var td = document.createElement("td")
+				td.append(maths)
+				tr.append(td)
+				var td = document.createElement("td")
+				td.append(science)
+				tr.append(td)
+
+				var total = Number(maths) + Number(english) + Number(science)
+
+				var td = document.createElement("td")
+				td.append(total)
+				tr.append(td)
+
+				var percent = Math.trunc(((((total)/150))*100) * 100)/100
+
+				var td = document.createElement("td")
+				td.append(percent)
+				tr.append(td)
+
+				var status;
+
+				if(percent > 35){
+					var td = document.createElement("td")
+					status = "Pass"
+					td.append(status)
+					tr.append(td)
+					if(percent >= 90){
+						var td = document.createElement("td")
+						td.append("O")
+						tr.append(td)
+					}
+					else if(percent >= 80){
+						var td = document.createElement("td")
+						td.append("A+")
+						tr.append(td)
+					}
+					else if(percent >= 70){
+						var td = document.createElement("td")
+						td.append("A")
+						tr.append(td)
+					}
+					else if(percent >= 60){
+						var td = document.createElement("td")
+						td.append("B+")
+						tr.append(td)
+					}
+					else if(percent >= 50){
+						var td = document.createElement("td")
+						td.append("B")
+						tr.append(td)
+					}
+					else if(percent > 35){
+						var td = document.createElement("td")
+						td.append("C+")
+						tr.append(td)
+					}
+
+				}
+				else{
+					var td = document.createElement("td")
+					status = "Fail"
+					td.append(status)
+					tr.append(td)
+					var td = document.createElement("td")
+					td.append("F")
+					tr.append(td)
+				}
+				table.append(tr)
+				var student = {rollno: rollno, name: name, english: english, maths: maths, science:science, status: status, total: total, percent: percent}
+				students.push(student)
+				count = 0;
+				total = 0;
+				for(var i = 0; i<students.length; i++){
+					if(students[i].status == "Pass"){
+						count = count + 1;
+					}
+					total = total + students[i].percent
+				}
+				passed.innerHTML = count
+				average.innerHTML = total/(students.length)
+
+			}
+			function download(){
+				var text = "<?xml version = '1.0' encoding='UTF-8'?><students>"
+				for(var i = 0; i<students.length; i++){
+					text = text + "<student>" + "<name>" + students[i].name + "</name>" + "<rollno>" + students[i].rollno + "</rollno>" + "<english-marks>" + students[i].english + "</english-marks>" + "<maths-marks>" + students[i].maths + "</maths-marks>" + "<science-marks>" + students[i].science + "</science-marks>" + "</student>"
+				}
+				text = text + "</students>"
+				download("students.xml", text)
+			}
+		</script>
+	</body>
+</html>
