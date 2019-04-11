@@ -1,1 +1,5 @@
-<customers></customers>
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="customers.xsl" ?>
+<customers>
+
+</customers>

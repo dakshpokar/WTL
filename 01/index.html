@@ -26,17 +26,8 @@
 	</style>
 	<body>
 
-		<table id="marks" border="1px" style="width: 60%; border-collapse: collapse;">
-			<tr>
-			<th>Customer Name</th>
-			<th>Address</th>
-			<th>Gender</th>
-			<th>Languages known</th>
-			<th>City</th>
-			</tr>
-		</table>
-		
-		<div style="position: fixed; float:right; right: 10px; top: 10px">
+	
+		<div style="position: fixed;">
 		<h3>Enter data</h3>
 		<form method="post">
 			<input id="name" class="input-box" type="text" placeholder="Enter your Name" required><br>
@@ -51,7 +42,7 @@
 
 			<button onclick="oncl()" class="submit-box" type="button">Add Student</button>
 		</form>
-		<button onclick="download()" class="submit-box" type="button">Download Data</button>
+		<button onclick="download('customers.xml')" class="submit-box" type="button">Download Data</button>
 	</div>
 		<script type="text/javascript">
 			customers = []
@@ -66,6 +57,7 @@
 				xhttp.open("GET", "customers.xml", true);
 				xhttp.send();
 			}
+			var text = ""
 			function addCustomer(xml){
 				var name = document.getElementById("name").value
 				var address = document.getElementById("address").value
@@ -99,9 +91,9 @@
 				var x = xmlDoc.getElementsByTagName("customer")[0]
 				alert(x.childNodes[0].childNodes[0].nodeValue)
 				var xmlString = new XMLSerializer().serializeToString(xmlDoc);
-				download("customers.xml", xmlString)
+				text = xmlString
 			}
-			function download(filename, text) {
+			function download(filename) {
 				var element = document.createElement('a');
 				element.setAttribute('href', 'data:text/xml;charset=utf-8,' + text);
 				element.setAttribute('download', filename);
