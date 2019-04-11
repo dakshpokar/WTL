@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" 
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>	
+	<bean id="employee" class="com.main.pkg.Employee" scope="prototype">
+		<property name="eId" value="1"></property>
+		<property name="eName" value="Daksh Pokar"></property>
+		<property name="eSalary" value="10000"></property>
+		<property name="eDept" value="Computer"></property>
+	</bean>
+</beans>

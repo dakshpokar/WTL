@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Food Ordering System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+<body>
+    <script type="text/javascript">
+        var num = 0
+        function del(i){
+            var x = document.getElementById("item-"+i.toString())
+            x.remove()
+        }
+        function removeAll(){
+            var bill = document.getElementById("bill")
+            bill.innerHTML = ""
+        }
+        function addItem(){
+            
+            var bill = document.getElementById("bill")
+            
+            var div = document.createElement("div")
+            div.setAttribute("id", "item-" + num.toString())
+            var input = document.createElement("input")
+            var hidden = document.getElementById("numVal")
+            var del = document.createElement("a")
+
+            input.setAttribute("type", "text")
+            input.setAttribute("placeholder", "Enter Item")
+            input.setAttribute("name", "item-" + num.toString())
+
+            var quant = document.createElement("input")
+            quant.setAttribute("type", "text")
+            quant.setAttribute("placeholder", "Enter Quantity")
+            quant.setAttribute("name", "quant-" + num.toString())
+
+
+            var price = document.createElement("input")
+            price.setAttribute("type", "text")
+            price.setAttribute("placeholder", "Enter Per Quantity Price")
+            price.setAttribute("name", "price-" + num.toString())
+
+            del.setAttribute("onclick", "del("+num.toString()+")")
+            del.setAttribute("href", "#")
+            del.innerHTML = "Delete this"
+
+            div.append(input)
+            div.append(quant)
+            div.append(price)
+            
+            div.append(del)
+
+            bill.append(div)
+            
+            num++
+            hidden.value = num.toString();
+        }
+    </script>
+    <form action="generateBill.jsp" method="post">
+        <div id="bill">
+            <input id="numVal" type="hidden" value="0"/>
+            
+        </div>
+            <input type="button" onclick="addItem()" value="Add Item"/>
+            <input type="button" onclick="removeAll()" value="Reset"/>
+            <input type="submit" value = "Generate Bill">  
+    </form>
+</body>
+</html>

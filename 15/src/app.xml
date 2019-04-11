@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" 
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>	
+	<bean id="bcoach" class="com.main.pkg.BaseballCoach">
+		<property name="fortune" ref="fortune"></property>
+		<property name="homeruns" value="69"></property>
+	</bean>
+	<bean id="ccoach" class="com.main.pkg.CricketCoach">
+		<property name="fortune" ref="fortune"></property>
+		<property name="rating" value="10"></property>
+	</bean>
+	<bean id="fortune" class="com.main.pkg.FortuneService">
+		
+	</bean>
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" 
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>	
+	<bean id="student" class="com.main.pkg.Student" scope="prototype">
+		<constructor-arg value="Daksh Pokar" type="java.lang.String"></constructor-arg>
+		<constructor-arg value="3160"></constructor-arg>
+		<constructor-arg value="Computer" type="java.lang.String"></constructor-arg>
+		<constructor-arg ref="address"></constructor-arg>
+	
+	</bean>
+	<bean id="address" class="com.main.pkg.Address">
+		<constructor-arg value="Pune"></constructor-arg>
+		<constructor-arg value="India"></constructor-arg>
+	</bean>
+</beans>
